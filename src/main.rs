@@ -5,13 +5,15 @@ mod utils;
 mod request;
 mod cli;
 
+use request::Request;
+
 #[tokio::main]
 async fn main() {
 	let args = cli::Args::parse_args();
 
 	let logger = utils::Logger::new();
 
-	let mut request = request::Request::new(&args.method, &args.formatted_url());
+	let mut request = Request::new(&args.method, &args.formatted_url());
 	let response = request.send().await;
 
 	match response {
